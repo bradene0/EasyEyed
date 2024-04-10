@@ -32,6 +32,7 @@ public class Main {
 
     public static void generateBadgePDF(String name, String id, String department, int level) {
         Document document = new Document();
+
         try {
             // Create directory if it doesn't exist
             File directory = new File("badges");
@@ -41,11 +42,11 @@ public class Main {
 
             // Define badge colors for each level
             Map<Integer, BaseColor> levelColors = new HashMap<>();
-            levelColors.put(1, new BaseColor(255, 0, 0));       // Red
-            levelColors.put(2, new BaseColor(0, 255, 0));       // Green
-            levelColors.put(3, new BaseColor(255, 255, 0));     // Yellow
-            levelColors.put(4, new BaseColor(0, 0, 255));       // Blue
-            levelColors.put(5, new BaseColor(128, 0, 128));     // Purple
+            levelColors.put(1, new BaseColor(255, 204, 204)); // Light Red
+            levelColors.put(2, new BaseColor(204, 255, 204)); // Light Green
+            levelColors.put(3, new BaseColor(255, 255, 204)); // Light Yellow
+            levelColors.put(4, new BaseColor(204, 204, 255)); // Light Blue
+            levelColors.put(5, new BaseColor(229, 204, 255)); // Light Purple
 
             // Get the color for the specified level
             BaseColor backgroundColor = levelColors.get(level);
@@ -54,11 +55,20 @@ public class Main {
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("badges/" + name + "_badge.pdf"));
             document.open();
 
+            // Set background color of the document
+            document.add(new Chunk(""));
+            document.addTitle("Employee Badge");
+            document.add(new Paragraph("Employee Badge"));
+
+            // Set background color
+            Rectangle rect = new Rectangle(document.getPageSize());
+            rect.setBackgroundColor(backgroundColor);
+            document.add(rect);
+
             // Custom font
             Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16, BaseColor.BLACK);
 
             // Add employee information
-            document.add(new Paragraph("Employee Badge", font));
             document.add(new Paragraph("Name: " + name, font));
             document.add(new Paragraph("ID: " + id, font));
             document.add(new Paragraph("Department: " + department, font));
@@ -69,11 +79,6 @@ public class Main {
             Image qrImage = qrCode.getImage();
             qrImage.scaleAbsolute(100, 100);
             document.add(qrImage);
-
-            // Set background color
-            Rectangle rect = new Rectangle(PageSize.A7);
-            rect.setBackgroundColor(backgroundColor);
-            document.add(rect);
 
         } catch (Exception e) {
             e.printStackTrace();
