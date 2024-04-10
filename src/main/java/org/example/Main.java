@@ -13,7 +13,24 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        // Accept employee information
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the number of badges to generate (up to 5):");
+        int numBadges = scanner.nextInt();
+
+        if (numBadges > 0 && numBadges <= 5) {
+            for (int i = 0; i < numBadges; i++) {
+                System.out.println("\nBadge #" + (i + 1) + ":");
+                generateBadge();
+            }
+            System.out.println("\nAll badges generated successfully!");
+        } else {
+            System.out.println("Invalid number of badges. Please enter a number between 1 and 5.");
+        }
+
+        scanner.close();
+    }
+
+    public static void generateBadge() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter employee name:");
         String name = scanner.nextLine();
@@ -26,8 +43,8 @@ public class Main {
 
         // Generate PDF
         generateBadgePDF(name, id, department, level);
+
         System.out.println("Badge generated successfully!");
-        scanner.close();
     }
 
     public static void generateBadgePDF(String name, String id, String department, int level) {
@@ -52,15 +69,11 @@ public class Main {
             BaseColor backgroundColor = levelColors.get(level);
 
             // Generate badge PDF
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("badges/" + name + "_badge.pdf"));
+            String fileName = name.replaceAll("\\s+", "_") + "_badge.pdf"; // Replace spaces in name with underscores
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("badges/" + fileName));
             document.open();
 
             // Set background color of the document
-            document.add(new Chunk(""));
-            document.addTitle("Employee Badge");
-            document.add(new Paragraph("Employee Badge"));
-
-            // Set background color
             Rectangle rect = new Rectangle(document.getPageSize());
             rect.setBackgroundColor(backgroundColor);
             document.add(rect);
@@ -69,6 +82,7 @@ public class Main {
             Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16, BaseColor.BLACK);
 
             // Add employee information
+            document.add(new Paragraph("Employee Badge", font));
             document.add(new Paragraph("Name: " + name, font));
             document.add(new Paragraph("ID: " + id, font));
             document.add(new Paragraph("Department: " + department, font));
