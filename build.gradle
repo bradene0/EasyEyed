@@ -12,6 +12,8 @@ repositories {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'com.itextpdf:itextpdf:5.5.13.2' // Add iText dependency
+
 }
 
 test {
