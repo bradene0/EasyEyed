@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ded84a7-f7f6-4a65-9b50-e0f31dea70be" name="Changes" comment="Added option to create up to 5 badges at once">
+    <list default="true" id="2ded84a7-f7f6-4a65-9b50-e0f31dea70be" name="Changes" comment="created 1st release">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,10 +82,15 @@
     "Gradle.Build EasyEyed.executor": "Run",
     "Gradle.EasyEyed [:Main.main()].executor": "Run",
     "Gradle.EasyEyed [build].executor": "Run",
+    "Gradle.EasyEyed [jar].executor": "Run",
+    "JAR Application.EasyEyed-1.0-SNAPSHOT.jar.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "onboarding.tips.debug.path": "/home/braden/repos/EasyEyed/src/main/java/org/example/Main.java"
+    "onboarding.tips.debug.path": "/home/braden/repos/EasyEyed/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="RunManager" selected="Application.Main">
@@ -124,10 +129,61 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="EasyEyed [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="EasyEyed [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="EasyEyed-1.0-SNAPSHOT.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/build/libs/EasyEyed-1.0-SNAPSHOT.jar" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="Gradle.EasyEyed [build]" />
+        <item itemvalue="Gradle.EasyEyed [clean]" />
+        <item itemvalue="JAR Application.EasyEyed-1.0-SNAPSHOT.jar" />
+        <item itemvalue="Gradle.EasyEyed [jar]" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -172,7 +228,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712792194754</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Major changes to badge generation with swing GUI">
+      <option name="closed" value="true" />
+      <created>1712793768360</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1712793768360</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -181,6 +245,8 @@
     <MESSAGE value="Added employee levels and colors" />
     <MESSAGE value="Changed employee colors to better contrast text, ensured uniform badge coloring" />
     <MESSAGE value="Added option to create up to 5 badges at once" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added option to create up to 5 badges at once" />
+    <MESSAGE value="Major changes to badge generation with swing GUI" />
+    <MESSAGE value="created 1st release" />
+    <option name="LAST_COMMIT_MESSAGE" value="created 1st release" />
   </component>
 </project>
