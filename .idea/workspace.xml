@@ -93,7 +93,7 @@
     "project.structure.side.proportion": "0.2"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Gradle.EasyEyed [jar]">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />
       <module name="EasyEyed.main" />
@@ -179,10 +179,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.EasyEyed [jar]" />
         <item itemvalue="Gradle.EasyEyed [build]" />
         <item itemvalue="Gradle.EasyEyed [clean]" />
         <item itemvalue="JAR Application.EasyEyed-1.0-SNAPSHOT.jar" />
-        <item itemvalue="Gradle.EasyEyed [jar]" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
