@@ -1,53 +1,124 @@
 package org.example;
 
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.BarcodeQRCode;
-
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
-public class Main {
+import com.itextpdf.text.*;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.BarcodeQRCode;
+import com.itextpdf.text.pdf.PdfWriter;
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the number of badges to generate (up to 5):");
-        int numBadges = scanner.nextInt();
+public class Main extends JFrame {
 
-        if (numBadges > 0 && numBadges <= 5) {
-            for (int i = 0; i < numBadges; i++) {
-                System.out.println("\nBadge #" + (i + 1) + ":");
-                generateBadge();
+    private JLabel numBadgesLabel;
+    private JTextField numBadgesField;
+    private JButton generateButton;
+    private JTabbedPane tabbedPane;
+
+    public Main() {
+        super("Employee Badge Generator");
+
+        setLayout(new BorderLayout());
+
+        JPanel topPanel = new JPanel(new FlowLayout());
+        numBadgesLabel = new JLabel("How many badges? Up to five:");
+        topPanel.add(numBadgesLabel);
+        numBadgesField = new JTextField(5);
+        topPanel.add(numBadgesField);
+        generateButton = new JButton("Generate Badges");
+        generateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int numBadges = Integer.parseInt(numBadgesField.getText());
+                if (numBadges > 0 && numBadges <= 5) {
+                    createBadgeTabs(numBadges);
+                    topPanel.setVisible(false); // Hide badge number selection fields
+                } else {
+                    JOptionPane.showMessageDialog(Main.this, "Invalid number of badges. Please enter a number between 1 and 5.");
+                }
             }
-            System.out.println("\nAll badges generated successfully!");
-        } else {
-            System.out.println("Invalid number of badges. Please enter a number between 1 and 5.");
+        });
+        topPanel.add(generateButton);
+        add(topPanel, BorderLayout.NORTH);
+
+        tabbedPane = new JTabbedPane();
+        add(tabbedPane, BorderLayout.CENTER);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(600, 400);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    private void createBadgeTabs(int numBadges) {
+        for (int i = 0; i < numBadges; i++) {
+            JPanel panel = new JPanel(new GridLayout(6, 2));
+
+            JLabel nameLabel = new JLabel("Name:");
+            JTextField nameField = new JTextField();
+            JLabel idLabel = new JLabel("ID:");
+            JTextField idField = new JTextField();
+            JLabel departmentLabel = new JLabel("Department:");
+            JTextField departmentField = new JTextField();
+            JLabel levelLabel = new JLabel("Level:");
+            JTextField levelField = new JTextField();
+
+            panel.add(nameLabel);
+            panel.add(nameField);
+            panel.add(idLabel);
+            panel.add(idField);
+            panel.add(departmentLabel);
+            panel.add(departmentField);
+            panel.add(levelLabel);
+            panel.add(levelField);
+
+            JButton generateBadgeButton = new JButton("Generate Badge");
+            generateBadgeButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String name = nameField.getText();
+                    String id = idField.getText();
+                    String department = departmentField.getText();
+                    int level;
+                    try {
+                        level = Integer.parseInt(levelField.getText());
+                        if (level < 1 || level > 5) {
+                            JOptionPane.showMessageDialog(Main.this, "Invalid level. Please enter a number between 1 and 5.");
+                            return;
+                        }
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(Main.this, "Invalid level. Please enter a number between 1 and 5.");
+                        return;
+                    }
+
+                    generateBadgePDF(name, id, department, level);
+                    JOptionPane.showMessageDialog(Main.this, "Badge generated successfully!");
+
+                    // Close the tab after generating badge
+                    int index = tabbedPane.indexOfComponent(panel);
+                    if (index != -1) {
+                        tabbedPane.removeTabAt(index);
+                        if (tabbedPane.getTabCount() == 0) {
+                            dispose(); // Close the main window if all badges are generated
+                        }
+                    }
+                }
+            });
+
+            panel.add(generateBadgeButton);
+
+            tabbedPane.addTab("Badge #" + (i + 1), panel);
         }
-
-        scanner.close();
     }
 
-    public static void generateBadge() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter employee name:");
-        String name = scanner.nextLine();
-        System.out.println("Enter employee ID:");
-        String id = scanner.nextLine();
-        System.out.println("Enter employee department:");
-        String department = scanner.nextLine();
-        System.out.println("Enter employee level (1-5):");
-        int level = scanner.nextInt();
-
-        // Generate PDF
-        generateBadgePDF(name, id, department, level);
-
-        System.out.println("Badge generated successfully!");
-    }
-
-    public static void generateBadgePDF(String name, String id, String department, int level) {
+    private void generateBadgePDF(String name, String id, String department, int level) {
         Document document = new Document();
 
         try {
@@ -78,15 +149,15 @@ public class Main {
             rect.setBackgroundColor(backgroundColor);
             document.add(rect);
 
-            // Custom font
-            Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16, BaseColor.BLACK);
+// Custom font
+            com.itextpdf.text.Font font = com.itextpdf.text.FontFactory.getFont(com.itextpdf.text.FontFactory.HELVETICA_BOLD, 16, com.itextpdf.text.BaseColor.BLACK);
 
-            // Add employee information
-            document.add(new Paragraph("Employee Badge", font));
-            document.add(new Paragraph("Name: " + name, font));
-            document.add(new Paragraph("ID: " + id, font));
-            document.add(new Paragraph("Department: " + department, font));
-            document.add(new Paragraph("Level: " + level, font));
+// Add employee information
+            document.add(new com.itextpdf.text.Paragraph("Employee Badge", font));
+            document.add(new com.itextpdf.text.Paragraph("Name: " + name, font));
+            document.add(new com.itextpdf.text.Paragraph("ID: " + id, font));
+            document.add(new com.itextpdf.text.Paragraph("Department: " + department, font));
+            document.add(new com.itextpdf.text.Paragraph("Level: " + level, font));
 
             // Add QR code
             BarcodeQRCode qrCode = new BarcodeQRCode(id, 1, 1, null);
@@ -99,5 +170,13 @@ public class Main {
         } finally {
             document.close();
         }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Main();
+            }
+        });
     }
 }
