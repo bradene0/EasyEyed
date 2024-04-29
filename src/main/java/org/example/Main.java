@@ -14,7 +14,7 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BarcodeQRCode;
 import com.itextpdf.text.pdf.PdfWriter;
-
+//todo add better formatting
 public class Main extends JFrame {
 
     private JLabel numBadgesLabel;
